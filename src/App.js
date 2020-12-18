@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { MapContainer, TileLayer } from "react-leaflet";
+import L from "leaflet";
+
+import "leaflet/dist/leaflet.css";
+import LocationMarker from "./components/LocationMarker";
+import DraggableMarker from "./components/DraggableMarker";
+
+const center = [51.505, -0.09];
+
+const customMarker = new L.icon({
+  iconUrl: "https://unpkg.com/leaflet@1.4.0/dist/images/marker-icon.png",
+  iconSize: [25, 41],
+  iconAnchor: [13, 0],
+});
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MapContainer
+        center={center}
+        zoom={12}
+        scrollWheelZoom={false}
+        style={{ height: "100vh" }}
+      >
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <DraggableMarker icon={customMarker} center={center} />
+        <LocationMarker icon={customMarker} />
+      </MapContainer>
     </div>
   );
 }
